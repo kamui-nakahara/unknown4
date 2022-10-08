@@ -13,5 +13,31 @@ class Settings:
                 "x":300,
                 "y":700,
                 "color":(255,0,0),
-                "coll_color":(255,255,255)
+                "coll_color":(255,255,255),
+                "speed":5,
+                "slow":2,
+                "power":1,
+                "max_power":5
+        }
+        #プレイヤーの弾の設定
+        self.player_bullet1={
+                "size":5,
+                "color":(255,255,0),
+                "speed":7,
+                "timing":3
+        }
+        self.player_bullet2={
+                "size":3,
+                "color":(200,200,200),
+                "speed":8,
+                "timing":3
+        }
+        #敵の設定
+        self.enemy1={
+                "size":10,
+                "color":(120,0,120),
+                "speed":4,
+                "timing":10,
+                "height1":300,
+                "height2":400,
         }
