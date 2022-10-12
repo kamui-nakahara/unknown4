@@ -15,6 +15,8 @@ class Player:
         self.slow=main.settings.player["slow"]
         self.power=main.settings.player["power"]
         self.max_power=main.settings.player["max_power"]
+        self.item_coll=main.settings.player["item_coll"]
+        self.life=main.settings.player["life"]
         self.move_up=False
         self.move_down=False
         self.move_left=False

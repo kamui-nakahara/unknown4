@@ -6,6 +6,13 @@ class Settings:
                 "height":800,
                 "bg_color":(0,0,0)
         }
+        #スコアボードの設定
+        self.scoreboard={
+                "width":200,
+                "bg_color":(120,120,120),
+                "fg_color":(0,0,0),
+                "fontsize":30
+        }
         #プレイヤーの設定
         self.player={
                 "coll_size":5,
@@ -17,7 +24,9 @@ class Settings:
                 "speed":5,
                 "slow":2,
                 "power":1,
-                "max_power":5
+                "max_power":5,
+                "item_coll":100,
+                "life":5
         }
         #プレイヤーの弾の設定
         self.player_bullet1={
@@ -36,8 +45,19 @@ class Settings:
         self.enemy1={
                 "size":10,
                 "color":(120,0,120),
-                "speed":4,
+                "speed":3,
                 "timing":10,
-                "height1":300,
-                "height2":400,
+                "height":300,
+                "points":50
+        }
+        self.item1={
+                "size1":10,
+                "size2":5,
+                "color1":(0,0,255),
+                "color2":(255,255,255),
+                "speed1":0.2,
+                "speed2":1,
+                "speed3":5,
+                "power":10,
+                "prob":20
         }
