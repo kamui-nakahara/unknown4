@@ -8,7 +8,8 @@ class Stage:
         self.settings=main.settings
         self.width=self.settings.display["width"]
         self.height=self.settings.display["height"]
-        self.bg_color=self.settings.display["bg_color"]
+        self.bg_color=self.settings.stage["bg_color"]
+        self.lag=self.settings.stage["lag"]
         self.screen=main.screen
         self.player=main.player
         self.battery1=Battery1(self)

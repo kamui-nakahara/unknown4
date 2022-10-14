@@ -6,3 +6,4 @@ class Gamestate:
         self.highscore=0
         self.damage=False
         self.gameflag="playing"
+        #playing:進行中 gameover:ゲームオーバー nextstage:次のステージ empty:敵が倒されて次に進むまで

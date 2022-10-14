@@ -2,7 +2,9 @@ import pygame
 from settings import Settings
 from player import Player
 from scoreboard import Scoreboard
+from start import Start
 from stage1 import Stage1
+from stage2 import Stage2
 from gameover import Gameover
 from gamestate import Gamestate
 
@@ -14,7 +16,8 @@ class Main:
         self.screen=pygame.display.set_mode((self.width+self.settings.scoreboard["width"],self.height))
         self.gamestate=Gamestate()
         self.player=Player(self)
-        self.stage=Stage1(self)
+        self.stages=self.nextstage()
+        self.stage=next(self.stages)(self)
         self.scoreboard=Scoreboard(self)
     def loop(self):
         while True:
@@ -29,11 +32,15 @@ class Main:
                 self.stage.keydown(event.key)
             elif event.type==pygame.KEYUP:
                 self.stage.keyup(event.key)
+    def nextstage(self):
+        for i in [Start,Stage1,Stage2]:
+            yield i
     def update(self):
         if self.gamestate.gameflag=="gameover":
             self.stage=Gameover(self)
         elif self.gamestate.gameflag=="nextstage":
-            pass
+            self.stage=next(self.stages)(self)
+            self.gamestate.gameflag="playing"
         self.stage.update()
         self.scoreboard.update(self)
     def draw(self):

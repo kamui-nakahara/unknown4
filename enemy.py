@@ -34,7 +34,7 @@ class FiringHole:
                 self.enemys_count+=1
                 self.add()
         else:
-            self.gamestate.gameflag="nextstage"
+            self.gamestate.gameflag="empty"
         for enemy in self.enemys.copy():
             if True in [(0<=x<=self.screen_width and 0<=y<=self.screen_height) for x,y in enemy.pos]:
                 enemy.update(count,x,y)

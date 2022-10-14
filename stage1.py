@@ -34,6 +34,10 @@ class Stage1(Stage):
                 self.gamestate.damage=False
                 self.player.life-=1
                 self.firinghole.enemys=list()
+            if self.gamestate.gameflag=="empty":
+                self.lag-=1
+            if self.lag<=0:
+                self.gamestate.gameflag="nextstage"
         self.gamestate.count+=1
     def draw(self):
         self.battery1.draw()

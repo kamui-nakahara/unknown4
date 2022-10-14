@@ -3,8 +3,12 @@ class Settings:
         #画面の設定
         self.display={
                 "width":600,
-                "height":800,
-                "bg_color":(0,0,0)
+                "height":800
+        }
+        #ステージの設定
+        self.stage={
+                "bg_color":(0,0,0),
+                "lag":500
         }
         #ゲームオーバー画面の設定
         self.gameover={
@@ -57,7 +61,7 @@ class Settings:
                 "points":50,
                 "height1":200,
                 "height2":600,
-                "max_enemys":1000
+                "max_enemys":300
         }
         self.item1={
                 "size1":10,

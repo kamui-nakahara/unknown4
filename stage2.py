@@ -1,14 +1,9 @@
 import pygame
+from stage import Stage
 
-class Stage2:
+class Stage2(Stage):
     def __init__(self,main):
-        self.screen=main.screen
-        self.width=main.width
-        self.height=main.height
-    def keydown(self,key):
-        pass
-    def keyup(self,key):
-        pass
+        super().__init__(main)
     def update(self):
         pass
     def draw(self):
