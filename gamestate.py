@@ -5,3 +5,4 @@ class Gamestate:
         self.score=0
         self.highscore=0
         self.damage=False
+        self.gameflag="playing"

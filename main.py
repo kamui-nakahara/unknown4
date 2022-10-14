@@ -3,6 +3,7 @@ from settings import Settings
 from player import Player
 from scoreboard import Scoreboard
 from stage1 import Stage1
+from gameover import Gameover
 from gamestate import Gamestate
 
 class Main:
@@ -29,6 +30,10 @@ class Main:
             elif event.type==pygame.KEYUP:
                 self.stage.keyup(event.key)
     def update(self):
+        if self.gamestate.gameflag=="gameover":
+            self.stage=Gameover(self)
+        elif self.gamestate.gameflag=="nextstage":
+            pass
         self.stage.update()
         self.scoreboard.update(self)
     def draw(self):

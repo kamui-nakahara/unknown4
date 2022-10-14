@@ -17,6 +17,7 @@ class Player:
         self.max_power=main.settings.player["max_power"]
         self.item_coll=main.settings.player["item_coll"]
         self.life=main.settings.player["life"]
+        self.gamestate=main.gamestate
         self.move_up=False
         self.move_down=False
         self.move_left=False
@@ -31,6 +32,8 @@ class Player:
         if self.move_down and self.y+speed+self.size<=self.height:self.y+=speed
         if self.move_left and self.x-speed-self.size>=0:self.x-=speed
         if self.move_right and self.x+speed+self.size<=self.width:self.x+=speed
+        if self.life<=0:
+            self.gamestate.gameflag="gameover"
     def draw(self):
         pygame.draw.circle(self.screen,self.color,(self.x,self.y),self.size)
         pygame.draw.circle(self.screen,self.coll_color,(self.x,self.y),self.coll)

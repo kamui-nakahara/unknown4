@@ -6,6 +6,12 @@ class Settings:
                 "height":800,
                 "bg_color":(0,0,0)
         }
+        #ゲームオーバー画面の設定
+        self.gameover={
+                "fontsize1":100,
+                "bg_color":(0,0,50),
+                "fg_color1":(50,50,0)
+        }
         #スコアボードの設定
         self.scoreboard={
                 "width":200,
@@ -46,9 +52,12 @@ class Settings:
                 "size":10,
                 "color":(120,0,120),
                 "speed":3,
-                "timing":10,
+                "timing":7,
                 "height":300,
-                "points":50
+                "points":50,
+                "height1":200,
+                "height2":600,
+                "max_enemys":1000
         }
         self.item1={
                 "size1":10,

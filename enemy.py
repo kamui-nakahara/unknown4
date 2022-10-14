@@ -15,30 +15,38 @@ class FiringHole:
         self.timing=main.settings.enemy1["timing"]
         self.height=main.settings.enemy1["height"]
         self.points=main.settings.enemy1["points"]
+        self.height1=main.settings.enemy1["height1"]
+        self.height2=main.settings.enemy1["height2"]
+        self.max_enemys=main.settings.enemy1["max_enemys"]
         self.player_size=main.player.coll
         self.items=Items1(self,main.settings.item1,main.player)
         self.flag=False
         self.enemys=list()
+        self.enemys_count=0
     def add(self):
         x=0
         y=self.height
         enemy=Enemy1(self,x,y,0)
         self.enemys+=[enemy]
     def update(self,count,x,y):
-        if count%self.timing==0:
-            self.add()
+        if self.enemys_count<self.max_enemys:
+            if count%self.timing==0:
+                self.enemys_count+=1
+                self.add()
+        else:
+            self.gamestate.gameflag="nextstage"
         for enemy in self.enemys.copy():
             if True in [(0<=x<=self.screen_width and 0<=y<=self.screen_height) for x,y in enemy.pos]:
                 enemy.update(count,x,y)
             else:
                 self.enemys.remove(enemy)
         if self.flag:
-            self.height+=10
-            if self.height>400:
+            self.height+=5
+            if self.height>self.height2:
                 self.flag=False
         else:
-            self.height-=10
-            if self.height<200:
+            self.height-=5
+            if self.height<self.height1:
                 self.flag=True
         self.items.update()
     def draw(self):
