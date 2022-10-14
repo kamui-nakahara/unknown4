@@ -31,7 +31,7 @@ class Settings:
         #プレイヤーの弾の設定
         self.player_bullet1={
                 "size":5,
-                "color":(255,255,0),
+                "color":(100,100,100),
                 "speed":7,
                 "timing":3
         }

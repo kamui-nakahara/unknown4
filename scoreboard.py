@@ -27,9 +27,13 @@ class Scoreboard:
         self.power_text=self.font.render(f"POWER:{'O'*int(self.player.power)}",True,self.fg_color,self.bg_color)
         self.power_rect=self.power_text.get_rect()
         self.power_rect.topleft=self.score_rect.bottomleft
+        self.life_text=self.font.render(f"Player:{'O'*self.player.life}",True,self.fg_color,self.bg_color)
+        self.life_rect=self.life_text.get_rect()
+        self.life_rect.topleft=self.power_rect.bottomleft
     def draw(self):
         self.screen.fill(self.bg_color,self.rect)
         self.screen.blit(self.highscore1_text,self.highscore1_rect)
         self.screen.blit(self.highscore2_text,self.highscore2_rect)
         self.screen.blit(self.score_text,self.score_rect)
         self.screen.blit(self.power_text,self.power_rect)
+        self.screen.blit(self.life_text,self.life_rect)

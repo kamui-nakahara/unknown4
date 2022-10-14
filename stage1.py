@@ -71,6 +71,7 @@ class Stage1:
             if self.gamestate.damage:
                 self.gamestate.damage=False
                 self.player.life-=1
+                self.firinghole.enemys=list()
         self.gamestate.count+=1
     def draw(self):
         self.battery1.draw()
