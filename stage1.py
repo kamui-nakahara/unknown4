@@ -38,7 +38,6 @@ class Stage1(Stage):
                 self.lag-=1
             if self.lag<=0:
                 self.gamestate.gameflag="nextstage"
-        self.gamestate.count+=1
     def draw(self):
         self.battery1.draw()
         self.player.draw()

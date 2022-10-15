@@ -43,6 +43,7 @@ class Main:
             self.gamestate.gameflag="playing"
         self.stage.update()
         self.scoreboard.update(self)
+        self.gamestate.count+=1
     def draw(self):
         self.screen.fill(self.stage.bg_color)
         self.stage.draw()
