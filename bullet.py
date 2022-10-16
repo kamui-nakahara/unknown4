@@ -16,12 +16,13 @@ class Battery1:
         self.power=main.player.power
         self.fire=False
     def add(self):
-        bullet=Bullet1(self,self.x,self.y)
-        self.bullets+=[bullet]
-        if self.power>=3:
-            bullet=Bullet1(self,self.x-self.size*3,self.y)
+        if int(self.power)==1:
+            bullet=Bullet1(self,self.x,self.y)
             self.bullets+=[bullet]
-            bullet=Bullet1(self,self.x+self.size*3,self.y)
+        elif int(self.power)>=2:
+            bullet=Bullet1(self,self.x-self.size*1.5,self.y)
+            self.bullets+=[bullet]
+            bullet=Bullet1(self,self.x+self.size*1.5,self.y)
             self.bullets+=[bullet]
     def update(self,count,x,y,power):
         self.x=x
@@ -66,8 +67,10 @@ class Battery2:
         self.y=main.player.y
         self.power=main.player.power
         self.fire=False
+        self.enemys=list()
     def add(self):
-        pass
+        bullet=Bullet2(self,self.x,self.y)
+        self.bullets+=[bullet]
     def update(self,count,x,y,power):
         self.x=x
         self.y=y
@@ -93,6 +96,6 @@ class Bullet2:
         self.x=x
         self.y=y
     def update(self):
-        pass
+        self
     def draw(self):
         pygame.draw.circle(self.screen,self.color,(self.x,self.y),self.size)

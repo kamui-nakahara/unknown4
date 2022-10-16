@@ -71,6 +71,6 @@ class Settings:
                 "speed1":0.2,
                 "speed2":1,
                 "speed3":5,
-                "power":10,
+                "power":0.02,
                 "prob":20
         }

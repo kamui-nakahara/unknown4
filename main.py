@@ -1,3 +1,4 @@
+#!/Users/kamui-nakahara/.pyenv/shims/python
 import pygame
 from settings import Settings
 from player import Player
