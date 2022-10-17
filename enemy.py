@@ -98,3 +98,30 @@ class Enemy1:
                 self.gamestate.damage=True
     def draw(self):
         pygame.draw.polygon(self.screen,self.color,self.pos)
+
+class Enemy2:
+    def __init__(self,main):
+        self.gamestate=main.gamestate
+        self.screen=main.screen
+        self.size1=main.settings.enemy2["size1"]
+        self.size2=main.settings.enemy2["size2"]
+        self.color1=main.settings.enemy2["color1"]
+        self.color2=main.settings.enemy2["color2"]
+        self.points=main.settings.enemy2["points"]
+        self.pos1=main.settings.enemy2["pos1"]
+        self.pos2=main.settings.enemy2["pos2"]
+        self.rect1_1=pygame.Rect((0,0,self.size1*2,self.size1*2))
+        self.rect1_1.center=self.pos1
+        self.rect1_2=pygame.Rect((0,0,self.size2*2,self.size2*2))
+        self.rect1_2.center=self.pos1
+        self.rect2_1=pygame.Rect((0,0,self.size1*2,self.size1*2))
+        self.rect2_1.center=self.pos2
+        self.rect2_2=pygame.Rect((0,0,self.size2*2,self.size2*2))
+        self.rect2_2.center=self.pos2
+    def update(self):
+        pass
+    def draw(self):
+        pygame.draw.rect(self.screen,self.color1,self.rect1_1)
+        pygame.draw.rect(self.screen,self.color2,self.rect1_2)
+        pygame.draw.rect(self.screen,self.color1,self.rect2_1)
+        pygame.draw.rect(self.screen,self.color2,self.rect2_2)

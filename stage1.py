@@ -12,8 +12,9 @@ class Stage1(Stage):
         if not self.gamestate.pause:
             self.player.update()
             self.battery1.update(self.gamestate.count,self.player.x,self.player.y,self.player.power)
+            self.battery2.update(self.gamestate.count,self.player.x,self.player.y,self.player.power)
             self.firinghole.update(self.gamestate.count,self.player.x,self.player.y)
-            for bullet in self.battery1.bullets.copy():
+            for bullet in self.battery1.bullets.copy()+self.battery2.bullets.copy():
                 x=bullet.x
                 y=bullet.y
                 for enemy in self.firinghole.enemys.copy():

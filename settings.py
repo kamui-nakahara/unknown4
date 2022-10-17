@@ -61,8 +61,28 @@ class Settings:
                 "points":50,
                 "height1":200,
                 "height2":600,
-                "max_enemys":300
+                "max_enemys":30
         }
+        self.enemy2={
+                "pos1":(150,150),
+                "pos2":(450,150),
+                "size1":15,
+                "size2":10,
+                "color1":(0,255,0),
+                "color2":(0,0,0),
+                "points":80
+        }
+        #敵の弾の設定
+        self.enemy_bullet2={
+                "size1":8,
+                "size2":4,
+                "color":(0,128,0),
+                "speed":3,
+                "timing":5,
+                "interval1":100,
+                "interval2":20,
+        }
+        #敵のドロップアイテムの設定
         self.item1={
                 "size1":10,
                 "size2":5,
@@ -71,6 +91,6 @@ class Settings:
                 "speed1":0.2,
                 "speed2":1,
                 "speed3":5,
-                "power":0.02,
+                "power":0.03,
                 "prob":20
         }

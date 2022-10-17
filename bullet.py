@@ -96,6 +96,7 @@ class Bullet2:
         self.x=x
         self.y=y
     def update(self):
-        self
+        self.y+=self.speed
+        self.x+=self.speed/5
     def draw(self):
         pygame.draw.circle(self.screen,self.color,(self.x,self.y),self.size)

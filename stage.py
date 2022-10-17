@@ -1,6 +1,6 @@
 import pygame
 import sys
-from bullet import Battery1
+from bullet import Battery1,Battery2
 
 class Stage:
     def __init__(self,main):
@@ -13,6 +13,7 @@ class Stage:
         self.screen=main.screen
         self.player=main.player
         self.battery1=Battery1(self)
+        self.battery2=Battery2(self)
     def keydown(self,key):
         if key==pygame.K_ESCAPE:
             sys.exit()
