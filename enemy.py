@@ -1,6 +1,7 @@
 import pygame
 from math import sin,cos,radians
 from item import Items1
+from enemy_bullet import Battery1
 from functions import *
 
 class FiringHole:
@@ -118,9 +119,11 @@ class Enemy2:
         self.rect2_1.center=self.pos2
         self.rect2_2=pygame.Rect((0,0,self.size2*2,self.size2*2))
         self.rect2_2.center=self.pos2
+        self.battery=Battery1(self)
     def update(self):
-        pass
+        self.battery.update()
     def draw(self):
+        self.battery.draw()
         pygame.draw.rect(self.screen,self.color1,self.rect1_1)
         pygame.draw.rect(self.screen,self.color2,self.rect1_2)
         pygame.draw.rect(self.screen,self.color1,self.rect2_1)

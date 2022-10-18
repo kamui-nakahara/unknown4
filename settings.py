@@ -61,7 +61,7 @@ class Settings:
                 "points":50,
                 "height1":200,
                 "height2":600,
-                "max_enemys":30
+                "max_enemys":300/10
         }
         self.enemy2={
                 "pos1":(150,150),
