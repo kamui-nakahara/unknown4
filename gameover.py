@@ -17,6 +17,8 @@ class Gameover(Stage):
     def keydown(self,key):
         if key==pygame.K_ESCAPE:
             sys.exit()
+        elif key==pygame.K_RETURN:
+            self.gamestate.gameflag="restart"
     def keyup(self,key):
         pass
     def draw(self):

@@ -6,6 +6,8 @@ from scoreboard import Scoreboard
 from start import Start
 from stage1 import Stage1
 from stage2 import Stage2
+from stage3 import Stage3
+from ending import Ending
 from gameover import Gameover
 from gamestate import Gamestate
 
@@ -34,7 +36,7 @@ class Main:
             elif event.type==pygame.KEYUP:
                 self.stage.keyup(event.key)
     def nextstage(self):
-        for i in [Start,Stage1,Stage2]:
+        for i in [Start,Stage1,Stage2,Stage3,Ending]:
             yield i
     def update(self):
         if self.gamestate.gameflag=="gameover":
@@ -42,6 +44,12 @@ class Main:
         elif self.gamestate.gameflag=="nextstage":
             self.stage=next(self.stages)(self)
             self.gamestate.gameflag="playing"
+        elif self.gamestate.gameflag=="restart":
+            self.gamestate=Gamestate()
+            self.player=Player(self)
+            self.stages=self.nextstage()
+            self.stage=next(self.stages)(self)
+            self.scoreboard=Scoreboard(self)
         self.stage.update()
         self.scoreboard.update(self)
         self.gamestate.count+=1

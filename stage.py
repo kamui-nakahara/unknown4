@@ -31,6 +31,7 @@ class Stage:
             self.player.move_slow=True
         elif key==pygame.K_z:
             self.battery1.fire=True
+            self.battery2.fire=True
     def keyup(self,key):
         if key==pygame.K_UP:
             self.player.move_up=False
@@ -44,6 +45,7 @@ class Stage:
             self.player.move_slow=False
         elif key==pygame.K_z:
             self.battery1.fire=False
+            self.battery2.fire=False
     def update(self):
         pass
     def draw(self):

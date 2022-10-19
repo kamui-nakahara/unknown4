@@ -41,5 +41,6 @@ class Stage1(Stage):
                 self.gamestate.gameflag="nextstage"
     def draw(self):
         self.battery1.draw()
+        self.battery2.draw()
         self.player.draw()
         self.firinghole.draw()

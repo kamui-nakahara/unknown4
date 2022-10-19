@@ -26,7 +26,7 @@ class Settings:
         #プレイヤーの設定
         self.player={
                 "coll_size":5,
-                "size":20,
+                "size":10,
                 "x":300,
                 "y":700,
                 "color":(255,0,0),
@@ -49,7 +49,8 @@ class Settings:
                 "size":3,
                 "color":(200,200,200),
                 "speed":8,
-                "timing":3
+                "timing":3,
+                "angle":10
         }
         #敵の設定
         self.enemy1={
@@ -61,7 +62,7 @@ class Settings:
                 "points":50,
                 "height1":200,
                 "height2":600,
-                "max_enemys":300/10
+                "max_enemys":300/1
         }
         self.enemy2={
                 "pos1":(150,150),
@@ -70,17 +71,21 @@ class Settings:
                 "size2":10,
                 "color1":(0,255,0),
                 "color2":(0,0,0),
-                "points":80
+                "points":80,
+                "life":100
         }
         #敵の弾の設定
         self.enemy_bullet2={
                 "size1":8,
                 "size2":4,
-                "color":(0,128,0),
-                "speed":3,
-                "timing":5,
+                "color1":(0,128,0),
+                "color2":(255,255,255),
+                "speed":2,
+                "timing":20,
                 "interval1":100,
-                "interval2":20,
+                "interval2":100,
+                "angle_step":20,
+                "append_rate":3
         }
         #敵のドロップアイテムの設定
         self.item1={
@@ -91,6 +96,6 @@ class Settings:
                 "speed1":0.2,
                 "speed2":1,
                 "speed3":5,
-                "power":0.03,
+                "power":0.02,
                 "prob":20
         }

@@ -1,4 +1,5 @@
 import pygame
+from random import randint
 from math import sin,cos,radians
 from item import Items1
 from enemy_bullet import Battery1
@@ -104,6 +105,8 @@ class Enemy2:
     def __init__(self,main):
         self.gamestate=main.gamestate
         self.screen=main.screen
+        self.screen_width=main.width
+        self.screen_height=main.height
         self.size1=main.settings.enemy2["size1"]
         self.size2=main.settings.enemy2["size2"]
         self.color1=main.settings.enemy2["color1"]
@@ -111,6 +114,7 @@ class Enemy2:
         self.points=main.settings.enemy2["points"]
         self.pos1=main.settings.enemy2["pos1"]
         self.pos2=main.settings.enemy2["pos2"]
+        self.settings=main.settings.enemy_bullet2
         self.rect1_1=pygame.Rect((0,0,self.size1*2,self.size1*2))
         self.rect1_1.center=self.pos1
         self.rect1_2=pygame.Rect((0,0,self.size2*2,self.size2*2))
@@ -119,12 +123,34 @@ class Enemy2:
         self.rect2_1.center=self.pos2
         self.rect2_2=pygame.Rect((0,0,self.size2*2,self.size2*2))
         self.rect2_2.center=self.pos2
+        self.player=main.player
         self.battery=Battery1(self)
+        self.life=[main.settings.enemy2["life"]]*2
+        self.old_life=self.life.copy()
+        self.items=Items1(self,main.settings.item1,main.player)
+        self.items.prob=100
     def update(self):
+        if self.old_life[0]>0 and self.life[0]<=0:
+            for i in range(10):
+                x=self.pos1[0]+randint(-self.size1,self.size1)
+                y=self.pos1[1]+randint(-self.size1,self.size1)
+                self.items.add(x,y)
+        if self.old_life[1]>0 and self.life[1]<=0:
+            for i in range(10):
+                x=self.pos2[0]+randint(-self.size1,self.size1)
+                y=self.pos2[1]+randint(-self.size1,self.size1)
+                self.items.add(x,y)
+        if self.gamestate.gameflag=="playing" and self.life[0]<=0 and self.life[1]<=0:
+            self.gamestate.gameflag="empty"
+        self.items.update()
         self.battery.update()
+        self.old_life=self.life.copy()
     def draw(self):
+        self.items.draw()
         self.battery.draw()
-        pygame.draw.rect(self.screen,self.color1,self.rect1_1)
-        pygame.draw.rect(self.screen,self.color2,self.rect1_2)
-        pygame.draw.rect(self.screen,self.color1,self.rect2_1)
-        pygame.draw.rect(self.screen,self.color2,self.rect2_2)
+        if self.life[0]>0:
+            pygame.draw.rect(self.screen,self.color1,self.rect1_1)
+            pygame.draw.rect(self.screen,self.color2,self.rect1_2)
+        if self.life[1]>0:
+            pygame.draw.rect(self.screen,self.color1,self.rect2_1)
+            pygame.draw.rect(self.screen,self.color2,self.rect2_2)

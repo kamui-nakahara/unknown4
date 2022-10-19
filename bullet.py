@@ -62,6 +62,7 @@ class Battery2:
         self.color=main.settings.player_bullet2["color"]
         self.speed=main.settings.player_bullet2["speed"]
         self.timing=main.settings.player_bullet2["timing"]
+        self.angle=main.settings.player_bullet2["angle"]
         self.bullets=list()
         self.x=main.player.x
         self.y=main.player.y
@@ -69,8 +70,11 @@ class Battery2:
         self.fire=False
         self.enemys=list()
     def add(self):
-        bullet=Bullet2(self,self.x,self.y)
-        self.bullets+=[bullet]
+        if self.power>=3:
+            bullet=Bullet2(self,self.x,self.y,270-self.angle)
+            self.bullets+=[bullet]
+            bullet=Bullet2(self,self.x,self.y,270+self.angle)
+            self.bullets+=[bullet]
     def update(self,count,x,y,power):
         self.x=x
         self.y=y
@@ -86,17 +90,19 @@ class Battery2:
         for bullet in self.bullets:
             bullet.draw()
 class Bullet2:
-    def __init__(self,battery,x,y):
+    def __init__(self,battery,x,y,angle):
         self.screen=battery.screen
         self.width=battery.width
         self.height=battery.height
         self.size=battery.size
         self.color=battery.color
         self.speed=battery.speed
+        self.vx=cos(radians(angle))*self.speed
+        self.vy=sin(radians(angle))*self.speed
         self.x=x
         self.y=y
     def update(self):
-        self.y+=self.speed
-        self.x+=self.speed/5
+        self.x+=self.vx
+        self.y+=self.vy
     def draw(self):
         pygame.draw.circle(self.screen,self.color,(self.x,self.y),self.size)
