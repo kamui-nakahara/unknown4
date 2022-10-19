@@ -74,6 +74,17 @@ class Settings:
                 "points":80,
                 "life":100
         }
+        self.enemy3={
+                "amount":3,
+                "size1":15,
+                "size2":10,
+                "circle_size":200,
+                "color1":(128,0,0),
+                "color2":(255,0,0),
+                "points":100,
+                "speed":1,
+                "life":150
+        }
         #敵の弾の設定
         self.enemy_bullet2={
                 "size1":8,

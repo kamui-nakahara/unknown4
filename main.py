@@ -10,6 +10,8 @@ from stage3 import Stage3
 from ending import Ending
 from gameover import Gameover
 from gamestate import Gamestate
+from item import Items1
+from bullet import Battery1,Battery2
 
 class Main:
     def __init__(self):
@@ -19,6 +21,9 @@ class Main:
         self.screen=pygame.display.set_mode((self.width+self.settings.scoreboard["width"],self.height))
         self.gamestate=Gamestate()
         self.player=Player(self)
+        self.battery1=Battery1(self)
+        self.battery2=Battery2(self)
+        self.items=Items1(self,self.settings.item1,self.player)
         self.stages=self.nextstage()
         self.stage=next(self.stages)(self)
         self.scoreboard=Scoreboard(self)

@@ -1,7 +1,6 @@
 import pygame
 from random import randint
 from math import sin,cos,radians
-from item import Items1
 from enemy_bullet import Battery1
 from functions import *
 
@@ -21,7 +20,7 @@ class FiringHole:
         self.height2=main.settings.enemy1["height2"]
         self.max_enemys=main.settings.enemy1["max_enemys"]
         self.player_size=main.player.coll
-        self.items=Items1(self,main.settings.item1,main.player)
+        self.items=main.items
         self.flag=False
         self.enemys=list()
         self.enemys_count=0
@@ -127,7 +126,7 @@ class Enemy2:
         self.battery=Battery1(self)
         self.life=[main.settings.enemy2["life"]]*2
         self.old_life=self.life.copy()
-        self.items=Items1(self,main.settings.item1,main.player)
+        self.items=main.items
         self.items.prob=100
     def update(self):
         if self.old_life[0]>0 and self.life[0]<=0:
@@ -154,3 +153,26 @@ class Enemy2:
         if self.life[1]>0:
             pygame.draw.rect(self.screen,self.color1,self.rect2_1)
             pygame.draw.rect(self.screen,self.color2,self.rect2_2)
+class Enemy3:
+    def __init__(self,main):
+        self.screen=main.screen
+        self.screen_width=main.width
+        self.screen_height=main.height
+        self.amount=main.settings.enemy3["amount"]
+        self.size1=main.settings.enemy3["size1"]
+        self.size2=main.settings.enemy3["size2"]
+        self.color1=main.settings.enemy3["color1"]
+        self.color2=main.settings.enemy3["color2"]
+        self.points=main.settings.enemy3["points"]
+        self.speed=main.settings.enemy3["speed"]
+        self.circle_size=main.settings.enemy3["circle_size"]
+        self.enemys_pos=[(cos(radians(i))*self.circle_size+self.screen_width/2,
+            sin(radians(i))*self.circle_size+self.screen_width/2) for i in range(0,360,int(360/self.amount))]
+        self.enemys_life=[main.settings.enemy3["life"]]*self.amount
+        self.items=main.items
+    def update(self):
+        self.items.update()
+    def draw(self):
+        self.items.draw()
+        for i in range(self.amount):
+            pass

@@ -1,6 +1,5 @@
 import pygame
 import sys
-from bullet import Battery1,Battery2
 
 class Stage:
     def __init__(self,main):
@@ -12,8 +11,9 @@ class Stage:
         self.lag=self.settings.stage["lag"]
         self.screen=main.screen
         self.player=main.player
-        self.battery1=Battery1(self)
-        self.battery2=Battery2(self)
+        self.items=main.items
+        self.battery1=main.battery1
+        self.battery2=main.battery2
     def keydown(self,key):
         if key==pygame.K_ESCAPE:
             sys.exit()

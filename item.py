@@ -4,10 +4,10 @@ from math import *
 from functions import *
 
 class Items1:
-    def __init__(self,firinghole,settings,player):
+    def __init__(self,main,settings,player):
         self.player=player
-        self.screen=firinghole.screen
-        self.height=firinghole.screen_height
+        self.screen=main.screen
+        self.height=main.height
         self.settings=settings
         self.prob=settings["prob"]
         self.speed=settings["speed3"]
