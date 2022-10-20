@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 from math import sin,cos,radians
-from enemy_bullet import Battery1
+from enemy_bullet import Battery1,Battery2
 from functions import *
 
 class FiringHole:
@@ -155,6 +155,8 @@ class Enemy2:
             pygame.draw.rect(self.screen,self.color2,self.rect2_2)
 class Enemy3:
     def __init__(self,main):
+        self.gamestate=main.gamestate
+        self.player=main.player
         self.screen=main.screen
         self.screen_width=main.width
         self.screen_height=main.height
@@ -165,14 +167,34 @@ class Enemy3:
         self.color2=main.settings.enemy3["color2"]
         self.points=main.settings.enemy3["points"]
         self.speed=main.settings.enemy3["speed"]
+        self.settings=main.settings.enemy_bullet3
         self.circle_size=main.settings.enemy3["circle_size"]
         self.enemys_pos=[(cos(radians(i))*self.circle_size+self.screen_width/2,
             sin(radians(i))*self.circle_size+self.screen_width/2) for i in range(0,360,int(360/self.amount))]
         self.enemys_life=[main.settings.enemy3["life"]]*self.amount
+        self.old_life=self.enemys_life.copy()
         self.items=main.items
+        self.angle=0
+        self.battery=Battery2(self)
     def update(self):
+        for i in range(self.amount):
+            if self.old_life[i]>0 and self.enemys_life[i]<=0:
+                for j in range(10):
+                    x=self.enemys_pos[i][0]+randint(-self.size1,self.size1)
+                    y=self.enemys_pos[i][1]+randint(-self.size1,self.size1)
+                    self.items.add(x,y)
+        if [True for i in self.enemys_life if i<=0]==[True]*self.amount:
+            self.gamestate.gameflag="empty"
         self.items.update()
+        self.enemys_pos=[(cos(radians(i+self.angle))*self.circle_size+self.screen_width/2,
+    sin(radians(i+self.angle))*self.circle_size+self.screen_width/2) for i in range(0,360,int(360/self.amount))]
+        self.angle+=self.speed
+        self.battery.update()
+        self.old_life=self.enemys_life.copy()
     def draw(self):
+        self.battery.draw()
         self.items.draw()
         for i in range(self.amount):
-            pass
+            if self.enemys_life[i]>0:
+                pygame.draw.circle(self.screen,self.color1,self.enemys_pos[i],self.size1)
+                pygame.draw.circle(self.screen,self.color2,self.enemys_pos[i],self.size2)

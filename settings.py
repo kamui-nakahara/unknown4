@@ -47,7 +47,7 @@ class Settings:
         }
         self.player_bullet2={
                 "size":3,
-                "color":(200,200,200),
+                "color":(120,120,120),
                 "speed":8,
                 "timing":3,
                 "angle":10
@@ -78,11 +78,11 @@ class Settings:
                 "amount":3,
                 "size1":15,
                 "size2":10,
-                "circle_size":200,
+                "circle_size":150,
                 "color1":(128,0,0),
                 "color2":(255,0,0),
                 "points":100,
-                "speed":1,
+                "speed":0.5,
                 "life":150
         }
         #敵の弾の設定
@@ -98,6 +98,13 @@ class Settings:
                 "angle_step":20,
                 "append_rate":3
         }
+        self.enemy_bullet3={
+                "size1":8,
+                "size2":4,
+                "color":(253,126,0),
+                "speed":2,
+                "timing":20
+        }
         #敵のドロップアイテムの設定
         self.item1={
                 "size1":10,
@@ -107,6 +114,6 @@ class Settings:
                 "speed1":0.2,
                 "speed2":1,
                 "speed3":5,
-                "power":0.02,
+                "power":0.03,
                 "prob":20
         }
