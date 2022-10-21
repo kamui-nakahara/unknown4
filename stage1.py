@@ -25,8 +25,6 @@ class Stage1(Stage):
                                 self.firinghole.enemys.remove(enemy)
                                 self.firinghole.items.add(enemy.x,enemy.y)
                                 self.gamestate.score+=enemy.points
-                                if self.gamestate.highscore<self.gamestate.score:
-                                    self.gamestate.highscore=self.gamestate.score
                             if bullet in self.battery1.bullets:
                                 self.battery1.bullets.remove(bullet)
             if self.player.power>self.player.max_power:

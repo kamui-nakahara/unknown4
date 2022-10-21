@@ -134,11 +134,13 @@ class Enemy2:
                 x=self.pos1[0]+randint(-self.size1,self.size1)
                 y=self.pos1[1]+randint(-self.size1,self.size1)
                 self.items.add(x,y)
+            self.gamestate.score+=self.points
         if self.old_life[1]>0 and self.life[1]<=0:
             for i in range(10):
                 x=self.pos2[0]+randint(-self.size1,self.size1)
                 y=self.pos2[1]+randint(-self.size1,self.size1)
                 self.items.add(x,y)
+            self.gamestate.score+=self.points
         if self.gamestate.gameflag=="playing" and self.life[0]<=0 and self.life[1]<=0:
             self.gamestate.gameflag="empty"
         self.items.update()
@@ -183,6 +185,7 @@ class Enemy3:
                     x=self.enemys_pos[i][0]+randint(-self.size1,self.size1)
                     y=self.enemys_pos[i][1]+randint(-self.size1,self.size1)
                     self.items.add(x,y)
+                self.gamestate.score+=self.points
         if [True for i in self.enemys_life if i<=0]==[True]*self.amount:
             self.gamestate.gameflag="empty"
         self.items.update()

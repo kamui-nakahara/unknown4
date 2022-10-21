@@ -7,7 +7,7 @@ class Ending(Stage):
         super().__init__(main)
         pygame.font.init()
         self.font=pygame.font.SysFont(None,40)
-        self.end_text=self.font.render("make by Kamui-Nakahara",True,(255,255,255),self.bg_color)
+        self.end_text=self.font.render("made by Kamui-Nakahara",True,(255,255,255),self.bg_color)
         self.end_rect=self.end_text.get_rect()
         self.end_rect.center=(self.width/2,0)
         self.end_rect.top=self.height

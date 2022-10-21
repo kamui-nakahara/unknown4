@@ -15,6 +15,8 @@ class Scoreboard:
         self.rect=pygame.Rect(self.screen_width,0,self.width,self.screen_height)
         self.font=pygame.font.SysFont(None,self.fontsize)
     def update(self,main):
+        if self.gamestate.highscore<self.gamestate.score:
+            self.gamestate.highscore=self.gamestate.score
         self.highscore1_text=self.font.render("HIGH SCORE",True,self.fg_color,self.bg_color)
         self.highscore1_rect=self.highscore1_text.get_rect()
         self.highscore1_rect.topleft=(self.screen_width,0)
