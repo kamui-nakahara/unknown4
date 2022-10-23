@@ -134,3 +134,76 @@ class Bullet2:
             self.count=-1
     def draw(self):
         pygame.draw.polygon(self.screen,self.color,self.pos)
+
+class Battery3:
+    def __init__(self,enemy):
+        self.gamestate=enemy.gamestate
+        self.player=enemy.player
+        self.screen=enemy.screen
+        self.width=enemy.screen_width
+        self.height=enemy.screen_height
+        self.timing=enemy.settings["timing"]
+        self.step=enemy.settings["step"]
+        self.settings=enemy.settings
+        self.bullets=list()
+        self.x=enemy.x
+        self.y=enemy.y
+        self.angle=90
+    def add(self,x,y,angle):
+        bullet=Bullet3(self,x,y,angle)
+        self.bullets+=[bullet]
+    def update(self):
+        if self.gamestate.count%self.timing==0:
+            self.add(self.x,self.y,self.angle)
+            self.angle+=17
+        x=self.player.x
+        y=self.player.y
+        for bullet in self.bullets.copy():
+            if not (0<=bullet.x<=self.width and 0<=bullet.y<=self.height):
+                self.bullets.remove(bullet)
+                continue
+            pos=bullet.pos
+            if True in [True for [x1,y1],[x2,y2] in zip(pos,pos[1:]+[pos[0]]) if line_hit(x,y,x1,y1,x2,y2,self.player.coll)]:
+                self.gamestate.damage=True
+                self.bullets=list()
+                break
+            if bullet.flag:
+                self.bullets.remove(bullet)
+                self.add(bullet.x,bullet.y,bullet.angle-self.step)
+                self.add(bullet.x,bullet.y,bullet.angle+self.step)
+                continue
+            bullet.update()
+    def draw(self):
+        for bullet in self.bullets:
+            bullet.draw()
+class Bullet3:
+    def __init__(self,battery,x,y,angle):
+        self.gamestate=battery.gamestate
+        self.screen=battery.screen
+        self.size1=battery.settings["size1"]
+        self.size2=battery.settings["size2"]
+        self.color=battery.settings["color"]
+        self.speed=battery.settings["speed"]
+        self.vx=cos(radians(angle))*self.speed
+        self.vy=sin(radians(angle))*self.speed
+        self.angle=angle
+        self.x=x
+        self.y=y
+        self.pos=list()
+        self.update_pos()
+        self.count=battery.gamestate.count
+        self.flag=False #Trueになったら分裂する
+    def update_pos(self):
+        self.pos=[
+                (cos(radians(self.angle))*self.size1+self.x,sin(radians(self.angle))*self.size1+self.y),
+                (cos(radians(self.angle+90))*self.size2+self.x,sin(radians(self.angle+90))*self.size2+self.y),
+                (cos(radians(self.angle+180))*self.size1+self.x,sin(radians(self.angle+180))*self.size1+self.y),
+                (cos(radians(self.angle+270))*self.size2+self.x,sin(radians(self.angle+270))*self.size2+self.y)]
+    def update(self):
+        self.x+=self.vx
+        self.y+=self.vy
+        self.update_pos()
+        if self.count!=-1 and self.gamestate.count-self.count>80:
+            self.flag=True
+    def draw(self):
+        pygame.draw.polygon(self.screen,self.color,self.pos)

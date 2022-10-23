@@ -28,6 +28,7 @@ class Main:
         self.stages=self.nextstage()
         self.stage=next(self.stages)(self)
         self.scoreboard=Scoreboard(self)
+        self.debug=False
     def loop(self):
         while True:
             self.check_events()
@@ -42,7 +43,7 @@ class Main:
             elif event.type==pygame.KEYUP:
                 self.stage.keyup(event.key)
     def nextstage(self):
-        for i in [Start,Stage1,Stage2,Stage3,Stage4,Ending]:
+        for i in [Start,Stage1,Stage2,Stage3,Ending]:
             yield i
     def update(self):
         if self.gamestate.gameflag=="gameover":
@@ -63,7 +64,8 @@ class Main:
         self.scoreboard.update(self)
         self.gamestate.count+=1
     def draw(self):
-        self.screen.fill(self.stage.bg_color)
+        if not self.debug:
+            self.screen.fill(self.stage.bg_color)
         self.stage.draw()
         self.scoreboard.draw()
         pygame.display.update()

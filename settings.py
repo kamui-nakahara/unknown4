@@ -82,8 +82,16 @@ class Settings:
                 "color1":(128,0,0),
                 "color2":(255,0,0),
                 "points":100,
-                "speed":0.5,
+                "speed":1,
                 "life":150
+        }
+        self.enemy4={
+                "size1":20,
+                "size2":10,
+                "color1":(0,255,0),
+                "color2":(0,0,0),
+                "points":120,
+                "life":200
         }
         #敵の弾の設定
         self.enemy_bullet2={
@@ -104,6 +112,14 @@ class Settings:
                 "color":(253,126,0),
                 "speed":2,
                 "timing":20
+        }
+        self.enemy_bullet4={
+                "size1":8,
+                "size2":4,
+                "color":(0,255,0),
+                "speed":2,
+                "timing":5,
+                "step":30
         }
         #敵のドロップアイテムの設定
         self.item1={
