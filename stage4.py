@@ -22,6 +22,7 @@ class Stage4(Stage):
                 y=bullet.y
                 if True in [True for [x1,y1],[x2,y2] in zip(pos,pos[1:]+[pos[0]]) if line_hit(x,y,x1,y1,x2,y2,self.player.coll)]:
                     self.battery1.bullets.remove(bullet)
+                    self.enemy.life-=1
                     continue
                 bullet.update()
             for bullet in self.battery2.bullets.copy():
@@ -32,6 +33,7 @@ class Stage4(Stage):
                 y=bullet.y
                 if True in [True for [x1,y1],[x2,y2] in zip(pos,pos[1:]+[pos[0]]) if line_hit(x,y,x1,y1,x2,y2,self.player.coll)]:
                     self.battery2.bullets.remove(bullet)
+                    self.enemy.life-=1
                     continue
                 bullet.update()
             if self.player.power>self.player.max_power:
