@@ -5,6 +5,7 @@ from stage1 import Stage1
 from stage2 import Stage2
 from stage3 import Stage3
 from stage4 import Stage4
+from stage5 import Stage5
 from ending import Ending
 
 class Start(Stage):
@@ -12,10 +13,10 @@ class Start(Stage):
         super().__init__(main)
         pygame.font.init()
         self.font=pygame.font.SysFont(None,50)
-        self.stages_amount=4
         self.num=0
-        self.stages=[Stage1,Stage2,Stage3,Stage4]
-        self.names=["Start","Stage1","Stage2","Stage3","Stage4"]
+        self.stages=[Stage1,Stage2,Stage3,Stage4,Stage5]
+        self.stages_amount=len(self.stages)
+        self.names=["Start","Stage1","Stage2","Stage3","Stage4","Stage5"]
         self.main=main
         self.start_texts=list()
         self.start_rects=list()

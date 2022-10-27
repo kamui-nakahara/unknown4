@@ -7,6 +7,7 @@ class Stage3(Stage):
     def __init__(self,main):
         super().__init__(main)
         self.enemy=Enemy3(self)
+        self.items.prob_max=True
     def update(self):
         if not self.gamestate.pause:
             self.player.update()

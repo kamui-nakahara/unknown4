@@ -1,5 +1,6 @@
 import pygame
-from math import sin,cos,radians
+from math import tan,sin,cos,radians
+from random import randint
 from functions import *
 
 class Battery1:
@@ -149,13 +150,14 @@ class Battery3:
         self.x=enemy.x
         self.y=enemy.y
         self.angle=90
+        self.enemy=enemy
     def add(self,x,y,angle):
         bullet=Bullet3(self,x,y,angle)
         self.bullets+=[bullet]
     def update(self):
-        if self.gamestate.count%self.timing==0:
+        if self.gamestate.count%self.timing==0 and self.enemy.life>0:
             self.add(self.x,self.y,self.angle)
-            self.angle+=17
+            self.angle+=31
         x=self.player.x
         y=self.player.y
         for bullet in self.bullets.copy():
@@ -205,5 +207,80 @@ class Bullet3:
         self.update_pos()
         if self.count!=-1 and self.gamestate.count-self.count>80:
             self.flag=True
+    def draw(self):
+        pygame.draw.polygon(self.screen,self.color,self.pos)
+
+class Battery4:
+    def __init__(self,enemy):
+        self.gamestate=enemy.gamestate
+        self.screen=enemy.screen
+        self.width=enemy.screen_width
+        self.height=enemy.screen_height
+        self.settings=enemy.settings
+        self.enemy=enemy
+        self.player=enemy.player
+        self.bullets=list()
+        self.angle=0
+    def add(self):
+        x=self.enemy.x
+        y=self.enemy.y
+        for i in range(0,360,8):
+            bullet=Bullet4(self,i+self.angle,x,y)
+            self.bullets+=[bullet]
+        self.angle+=1.3
+        return bullet
+    def update(self):
+        x=self.player.x
+        y=self.player.y
+        for bullet in self.bullets.copy():
+            if not (0<=bullet.x<=self.width and 0<=bullet.y<=self.height):
+                self.bullets.remove(bullet)
+                continue
+            pos=bullet.pos
+            if True in [True for [x1,y1],[x2,y2] in zip(pos,pos[1:]+[pos[0]]) if line_hit(x,y,x1,y1,x2,y2,self.player.coll)]:
+                self.gamestate.damage=True
+                self.bullets=list()
+                break
+            bullet.update()
+    def draw(self):
+        for bullet in self.bullets:
+            bullet.draw()
+class Bullet4:
+    def __init__(self,battery,angle,x,y):
+        self.screen=battery.screen
+        self.size1=battery.settings["size1"]
+        self.size2=battery.settings["size2"]
+        self.color1=battery.settings["color2"]
+        self.color2=battery.settings["color1"]
+        self.speed1=battery.settings["speed1"]
+        self.speed2=battery.settings["speed2"]
+        self.color=self.color1
+        self.x=x
+        self.y=y
+        self.vx=cos(radians(angle))*self.speed1
+        self.vy=sin(radians(angle))*self.speed1
+        self.angle=angle
+        self.update_pos()
+        self.flag=False
+    def update_pos(self):
+        self.pos=[
+                (cos(radians(self.angle))*self.size1+self.x,sin(radians(self.angle))*self.size1+self.y),
+                (cos(radians(self.angle+90))*self.size2+self.x,sin(radians(self.angle+90))*self.size2+self.y),
+                (cos(radians(self.angle+180))*self.size1+self.x,sin(radians(self.angle+180))*self.size1+self.y),
+                (cos(radians(self.angle+270))*self.size2+self.x,sin(radians(self.angle+270))*self.size2+self.y)]
+    def update(self):
+        if self.speed1>0:
+            self.vx=cos(radians(self.angle))*self.speed1
+            self.vy=sin(radians(self.angle))*self.speed1
+            self.x+=self.vx
+            self.y+=self.vy
+            self.speed1-=1
+            self.color=self.color1
+        else:
+            self.x-=cos(radians(self.angle))*self.speed2
+            self.y-=sin(radians(self.angle))*self.speed2
+            self.flag=True
+            self.color=self.color2
+        self.update_pos()
     def draw(self):
         pygame.draw.polygon(self.screen,self.color,self.pos)

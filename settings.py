@@ -32,7 +32,7 @@ class Settings:
                 "color":(255,0,0),
                 "coll_color":(255,255,255),
                 "speed":5,
-                "slow":2,
+                "slow":1.5,
                 "power":1,
                 "max_power":5,
                 "item_coll":100,
@@ -72,7 +72,7 @@ class Settings:
                 "color1":(0,255,0),
                 "color2":(0,0,0),
                 "points":80,
-                "life":100
+                "life":200
         }
         self.enemy3={
                 "amount":3,
@@ -83,7 +83,7 @@ class Settings:
                 "color2":(255,0,0),
                 "points":100,
                 "speed":1,
-                "life":150
+                "life":300
         }
         self.enemy4={
                 "size1":20,
@@ -91,7 +91,16 @@ class Settings:
                 "color1":(0,255,0),
                 "color2":(0,0,0),
                 "points":120,
-                "life":200
+                "life":400
+        }
+        self.enemy5={
+                "y":150,
+                "size":20,
+                "move_dis":200,
+                "color":(0,255,255),
+                "speed":5,
+                "points":140,
+                "life":500
         }
         #敵の弾の設定
         self.enemy_bullet2={
@@ -120,6 +129,14 @@ class Settings:
                 "speed":2,
                 "timing":5,
                 "step":30
+        }
+        self.enemy_bullet5={
+                "size1":8,
+                "size2":2,
+                "color1":(255,255,0),
+                "color2":(0,255,255),
+                "speed1":15,
+                "speed2":1
         }
         #敵のドロップアイテムの設定
         self.item1={

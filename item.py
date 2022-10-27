@@ -10,10 +10,11 @@ class Items1:
         self.height=main.height
         self.settings=settings
         self.prob=settings["prob"]
+        self.prob_max=False
         self.speed=settings["speed3"]
         self.items=list()
     def add(self,x,y):
-        if randint(0,100)<=self.prob:
+        if randint(0,100)<=self.prob or self.prob_max:
             item=Item1(self,x,y)
             self.items+=[item]
     def update(self):

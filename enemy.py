@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 from math import sin,cos,radians
-from enemy_bullet import Battery1,Battery2,Battery3
+from enemy_bullet import Battery1,Battery2,Battery3,Battery4
 from functions import *
 
 class FiringHole:
@@ -135,6 +135,7 @@ class Enemy2:
                 y=self.pos1[1]+randint(-self.size1,self.size1)
                 self.items.add(x,y)
             self.gamestate.score+=self.points
+            self.battery.bullets=[]
         if self.old_life[1]>0 and self.life[1]<=0:
             for i in range(10):
                 x=self.pos2[0]+randint(-self.size1,self.size1)
@@ -186,6 +187,7 @@ class Enemy3:
                     y=self.enemys_pos[i][1]+randint(-self.size1,self.size1)
                     self.items.add(x,y)
                 self.gamestate.score+=self.points
+                self.battery.bullets=[]
         if [True for i in self.enemys_life if i<=0]==[True]*self.amount:
             self.gamestate.gameflag="empty"
         self.items.update()
@@ -223,11 +225,80 @@ class Enemy4:
         self.pos2=[(cos(radians(i+90))*self.size2+self.x,sin(radians(i+90))*self.size2+self.y)
                 for i in range(0,360,60)]
         self.battery=Battery3(self)
+        self.items=main.items
     def update(self):
-        if self.life<=0:
+        if self.life<=0 and self.gamestate.gameflag=="playing":
             self.gamestate.gameflag="empty"
+            for i in range(15):
+                x=self.x+randint(-self.size1,self.size1)*2
+                y=self.y+randint(-self.size1,self.size1)*2
+                self.items.add(x,y)
+            self.gamestate.score+=self.points
+            self.battery.bullets=[]
+        self.items.update()
         self.battery.update()
     def draw(self):
         self.battery.draw()
-        pygame.draw.polygon(self.screen,self.color1,self.pos)
-        pygame.draw.polygon(self.screen,self.color2,self.pos2)
+        self.items.draw()
+        if self.life>0:
+            pygame.draw.polygon(self.screen,self.color1,self.pos)
+            pygame.draw.polygon(self.screen,self.color2,self.pos2)
+
+class Enemy5:
+    def __init__(self,main):
+        self.gamestate=main.gamestate
+        self.player=main.player
+        self.screen=main.screen
+        self.screen_width=main.width
+        self.screen_height=main.height
+        self.size=main.settings.enemy5["size"]
+        self.color=main.settings.enemy5["color"]
+        self.speed=main.settings.enemy5["speed"]
+        self.points=main.settings.enemy5["points"]
+        self.move_dis=main.settings.enemy5["move_dis"]
+        self.life=main.settings.enemy5["life"]
+        self.move_now=self.move_dis
+        self.angle=135
+        self.vx=cos(radians(self.angle))*self.speed
+        self.vy=sin(radians(self.angle))*self.speed
+        self.x=self.screen_width/2
+        self.y=main.settings.enemy5["y"]
+        self.settings=main.settings.enemy_bullet5
+        self.update_pos()
+        self.battery=Battery4(self)
+        self.bullet=None
+        self.items=main.items
+    def update_pos(self):
+        self.pos1=[(cos(radians(i+90))*self.size+self.x,sin(radians(i+90))*self.size+self.y)
+                for i in range(0,360,120)]
+        self.pos2=[(cos(radians(i-90))*self.size+self.x,sin(radians(i-90))*self.size+self.y)
+                for i in range(0,360,120)]
+    def update(self):
+        if self.life<=0:
+            if self.gamestate.gameflag=="playing":
+                self.gamestate.gameflag="empty"
+                for i in range(20):
+                    x=self.x+randint(-self.size,self.size)
+                    y=self.y+randint(-self.size,self.size)
+                    self.items.add(x,y)
+                self.gamestate.score+=self.points
+                self.battery.bullets=[]
+        elif self.battery.bullets==[] or ((not self.bullet is None) and (self.bullet.flag)):
+            self.x+=self.vx
+            self.y+=self.vy
+            self.move_now-=self.speed
+            if self.move_now<=0:
+                self.move_now=self.move_dis
+                self.angle-=90
+                self.vx=cos(radians(self.angle))*self.speed
+                self.vy=sin(radians(self.angle))*self.speed
+                self.bullet=self.battery.add()
+            self.update_pos()
+        self.items.update()
+        self.battery.update()
+    def draw(self):
+        self.battery.draw()
+        self.items.draw()
+        if self.life>0:
+            pygame.draw.polygon(self.screen,self.color,self.pos1)
+            pygame.draw.polygon(self.screen,self.color,self.pos2)

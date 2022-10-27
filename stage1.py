@@ -8,6 +8,7 @@ class Stage1(Stage):
     def __init__(self,main):
         super().__init__(main)
         self.firinghole=FiringHole(self)
+        self.items.prob_max=False
     def update(self):
         if not self.gamestate.pause:
             self.player.update()
