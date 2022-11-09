@@ -25,7 +25,7 @@ class Settings:
         }
         #プレイヤーの設定
         self.player={
-                "coll_size":5,
+                "coll_size":4,
                 "size":10,
                 "x":300,
                 "y":700,
@@ -102,6 +102,13 @@ class Settings:
                 "points":140,
                 "life":500
         }
+        self.enemy6={
+                "size":20,
+                "color":(255,0,0),
+                "points":160,
+                "life":600,
+                "timing":100
+        }
         #敵の弾の設定
         self.enemy_bullet2={
                 "size1":8,
@@ -137,6 +144,12 @@ class Settings:
                 "color2":(0,255,255),
                 "speed1":15,
                 "speed2":1
+        }
+        self.enemy_bullet6={
+                "size":2,
+                "color1":(255,0,0),
+                "color2":(255,255,0),
+                "speed":1
         }
         #敵のドロップアイテムの設定
         self.item1={

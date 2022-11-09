@@ -1,5 +1,5 @@
 import pygame
-from math import tan,sin,cos,radians
+from math import atan2,tan,sin,cos,radians
 from random import randint
 from functions import *
 
@@ -284,3 +284,60 @@ class Bullet4:
         self.update_pos()
     def draw(self):
         pygame.draw.polygon(self.screen,self.color,self.pos)
+
+class Battery5:
+    def __init__(self,enemy):
+        self.screen=enemy.screen
+        self.width=enemy.width
+        self.height=enemy.height
+        self.player=enemy.player
+        self.gamestate=enemy.gamestate
+        self.settings=enemy.settings
+        self.bullets=[]
+        self.x=enemy.x
+        self.y=enemy.y
+        self.angle=0
+    def add(self):
+        for i in range(0,360,5):
+            bullet=Bullet5(self,radians(i+self.angle))
+            self.bullets.append(bullet)
+        self.angle+=2.4
+    def update(self):
+        for bullet in self.bullets.copy():
+            if not (0<=bullet.x<=self.width and 0<=bullet.y<=self.height):
+                if bullet.flag:
+                    self.bullets.remove(bullet)
+                else:
+                    bullet.color=bullet.color2
+                    bullet.vx=-bullet.vx/3
+                    bullet.vy=-bullet.vy/3
+                    bullet.x+=bullet.vx*3
+                    bullet.y+=bullet.vy*3
+                    bullet.flag=True
+                continue
+            if distance(bullet.x,bullet.y,self.player.x,self.player.y)<bullet.size+self.player.coll:
+                self.gamestate.damage=True
+                self.bullets=[]
+                break
+            bullet.update()
+    def draw(self):
+        for bullet in self.bullets:
+            bullet.draw()
+class Bullet5:
+    def __init__(self,battery,angle):
+        self.screen=battery.screen
+        self.size=battery.settings["size"]
+        self.color1=battery.settings["color1"]
+        self.color2=battery.settings["color2"]
+        self.speed=battery.settings["speed"]
+        self.color=self.color1
+        self.x=battery.x
+        self.y=battery.y
+        self.vx=cos(angle)*self.speed
+        self.vy=sin(angle)*self.speed
+        self.flag=False
+    def update(self):
+        self.x+=self.vx
+        self.y+=self.vy
+    def draw(self):
+        pygame.draw.circle(self.screen,self.color,(self.x,self.y),self.size)

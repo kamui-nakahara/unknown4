@@ -1,7 +1,7 @@
 import pygame
 from random import randint
 from math import sin,cos,radians
-from enemy_bullet import Battery1,Battery2,Battery3,Battery4
+from enemy_bullet import Battery1,Battery2,Battery3,Battery4,Battery5
 from functions import *
 
 class FiringHole:
@@ -302,3 +302,39 @@ class Enemy5:
         if self.life>0:
             pygame.draw.polygon(self.screen,self.color,self.pos1)
             pygame.draw.polygon(self.screen,self.color,self.pos2)
+class Enemy6:
+    def __init__(self,main):
+        self.screen=main.screen
+        self.player=main.player
+        self.gamestate=main.gamestate
+        self.items=main.items
+        self.width=main.width
+        self.height=main.height
+        self.size=main.settings.enemy6["size"]
+        self.color=main.settings.enemy6["color"]
+        self.points=main.settings.enemy6["points"]
+        self.life=main.settings.enemy6["life"]
+        self.timing=main.settings.enemy6["timing"]
+        self.settings=main.settings.enemy_bullet6
+        self.x=self.width/2
+        self.y=self.width/4
+        self.battery=Battery5(self)
+    def update(self):
+        if self.life<=0:
+            if self.gamestate.gameflag=="playing":
+                self.gamestate.gameflag="empty"
+                self.battery.bullets=[]
+                for i in range(20):
+                    x=self.x+randint(-self.size,self.size)
+                    y=self.y+randint(-self.size,self.size)
+                    self.items.add(x,y)
+                self.gamestate.score+=self.points
+        if self.gamestate.count%self.timing==0 and self.gamestate.gameflag=="playing":
+            self.battery.add()
+        self.items.update()
+        self.battery.update()
+    def draw(self):
+        self.battery.draw()
+        if self.life>0:
+            pygame.draw.circle(self.screen,self.color,(self.x,self.y),self.size)
+        self.items.draw()
