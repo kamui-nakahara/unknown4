@@ -31,11 +31,13 @@ class Main:
         self.stage=next(self.stages)(self)
         self.scoreboard=Scoreboard(self)
         self.debug=False
+        self.clock=pygame.time.Clock()
     def loop(self):
         while True:
             self.check_events()
             self.update()
             self.draw()
+            self.clock.tick_busy_loop(150)
     def check_events(self):
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
